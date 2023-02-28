@@ -17,7 +17,7 @@ const loggedInStates={
   LOGGING_IN:'LOGGING_IN'
 }
 
-const App = () =>{
+const App = () =>{//regular function declaration)//also this is an arrow function
   const [isFirstLaunch, setFirstLaunch] = React.useState(true);
   const [loggedInState,setLoggedInState] = React.useState(loggedInStates.NOT_LOGGED_IN);
   const [phoneNumber,setPhoneNumber] = React.useState("");
@@ -25,7 +25,7 @@ const App = () =>{
   const [homeTodayScore, setHomeTodayScore] = React.useState(0);
 
   useEffect(()=>{//this is code that has to run before we show app screen
-   const getSessionToken = async()=>{
+   const getSessionToken = async()=>{//it is easier to give your varibales proper names
     const sessionToken = null ;//await AsyncStorage.getItem('sessionToken');
     console.log('sessionToken',sessionToken);
     const validateResponse = await fetch('https://dev.stedi.me/validate/'+sessionToken,
@@ -160,5 +160,9 @@ return(
       title:{
         textAlign: "center",
         marginTop: 80,
+        fontSize: 50,
+        color:'#A0CE4E',
+        fontWeight:'bold',
        }
+       
   }) 
