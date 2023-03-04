@@ -100,6 +100,11 @@ elevation: 4}}>
 {/* <BarChart barColor='green' data={data} horizontalData={horizontalData} /> */}
      <View style={{ marginTop: 50 }}>
       <Button onPress={myCustomerShare} title="Share" />
+      <Button onPress={()=>
+        {AsyncStorage.removeItem("sessiontoken")}}
+        prop.SetLoggedInState('NOT_LOGGED_IN'):
+       title="logout"/>
+        
     </View>
     </CardContent>
     </Card>

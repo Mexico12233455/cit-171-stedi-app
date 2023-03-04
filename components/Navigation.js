@@ -150,7 +150,7 @@ export default function Navigation (props) {
              
             <Tab.Screen  name="TabHome"
             // component={HomeStackScreen} 
-            children={()=><HomeStackScreen homeTodayScore={props.homeTodayScore}/>}
+            children={()=><ProfileStackScreen setloggedinstate={props.setloggedinstate}/>}
             options={{
                // tabBarColor:'pink',
                   tabBarLabel: 'Home',
@@ -172,7 +172,8 @@ export default function Navigation (props) {
                   }}
             />
             <Tab.Screen name="TabProfile" 
-            component={ProfileStackScreen}
+             children={()=><ProfileStackScreen loggedinstate={props.loggedinstate} homeTodayScore={props.homeTodayScore}}/>
+            //mponent={ProfileStackScreen}
             options={{
                 // tabBarColor:'pink',
                    tabBarLabel: 'Profile',
