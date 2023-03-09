@@ -101,9 +101,9 @@ elevation: 4}}>
      <View style={{ marginTop: 50 }}>
       <Button onPress={myCustomerShare} title="Share" />
       <Button onPress={()=>
-        {AsyncStorage.removeItem("sessiontoken")}}
-        prop.SetLoggedInState('NOT_LOGGED_IN'):
-       title="logout"/>
+        {AsyncStorage.removeItem("sessiontoken");
+        props.setLoggedInState('NOT_LOGGED_IN');
+        }}title="logout"/>
         
     </View>
     </CardContent>

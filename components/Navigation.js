@@ -64,14 +64,17 @@ const CounterStackScreen = () =>{
     );
 }
 
-const ProfileStackScreen = () =>{
+const ProfileStackScreen = (props) =>{
     return(
      <Stack.Navigator
      screenOptions= {{
         headerStyle:{backgroundColor:'#A0CE4E'},
         headerTintColor:'white'}}>
 
-        <Stack.Screen name="Profile" component={Profile} options={{
+        <Stack.Screen name="Profile" 
+        //component={Profile}
+        children={()=><Profile setLoggedInState={props.setLoggedInState}/>} 
+        options={{
              headerTitleAlign: "center",
              headerTitleStyle:{
                fontWeight:'bold', 
@@ -150,7 +153,7 @@ export default function Navigation (props) {
              
             <Tab.Screen  name="TabHome"
             // component={HomeStackScreen} 
-            children={()=><ProfileStackScreen setloggedinstate={props.setloggedinstate}/>}
+           children={()=><HomeStackScreen homeTodayScore={props.hometoday}/>}
             options={{
                // tabBarColor:'pink',
                   tabBarLabel: 'Home',
@@ -172,8 +175,8 @@ export default function Navigation (props) {
                   }}
             />
             <Tab.Screen name="TabProfile" 
-             children={()=><ProfileStackScreen loggedinstate={props.loggedinstate} homeTodayScore={props.homeTodayScore}}/>
-            //mponent={ProfileStackScreen}
+             children={()=><ProfileStackScreen setLoggedInState={props.setLoggedInState}/>}
+            // mponent={ProfileStackScreen}
             options={{
                 // tabBarColor:'pink',
                    tabBarLabel: 'Profile',
