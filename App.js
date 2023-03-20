@@ -6,6 +6,7 @@ import OnboardingScreen from './screens/OnboardingScreen';
 import Home from './screens/Home';
 import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as localAuthetication from 'expo-local-authentication'
 
 
 
@@ -23,6 +24,19 @@ const App = () =>{//regular function declaration)//also this is an arrow functio
   const [phoneNumber,setPhoneNumber] = React.useState("");
   const [oneTimePassword, setOneTimePassword] = React.useState("");
   const [homeTodayScore, setHomeTodayScore] = React.useState(0);
+  const [isBiometricSupported, setIsBiometricSupported] =React.useState(false);
+  const [isBiometricEnrolled, setIsBiometricEnrolled]= React.useState(false);
+
+useEffect(()=>{
+  (async()=>{
+    const compatible = await localAuthetication.hasHardwareAsync();
+    setIsBiometricSupported(compatible);
+    
+
+    const enrolled = await localAuthetication.isEnrolledAsync();
+    setIsBiometricEnrolled(enrolled);
+  })();
+});
 
   useEffect(()=>{//this is code that has to run before we show app screen
    const getSessionToken = async()=>{//it is easier to give your varibales proper names
@@ -57,6 +71,16 @@ return(
     return (
       <View>
         <Text style={styles.title}>Welcome Back</Text>
+        <Text> {isBiometricSupported ? 'your device is compatible woth Biometric'
+       : 'your device is not compatible with biometric'}
+
+       </Text>
+       <Text> {isBiometricEnrolled ? 'you have a fingerprint or face Biometric'
+       : 'you have not saved a fingerprint or a face Biometric'}
+
+       </Text>
+
+        
         <TextInput 
           value={phoneNumber}
           onChangeText={setPhoneNumber}
@@ -64,6 +88,17 @@ return(
           placeholderTextColor='#4251f5' 
           placeholder='Cell Phone'>          
         </TextInput>
+        <Button
+        title = 'biometric authentication'
+        styles= {styles.button}
+        onpress = {async ()=> {
+        const biometricAuth = await localAuthetication.authenticateAsync({
+          promptmessage:'login with Biometric',
+        })
+        console.log("biometric Auth",biometricAuth)
+        }}
+       
+       />
         <Button
           title='Send'
           style={styles.button}
