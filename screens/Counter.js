@@ -23,6 +23,8 @@ export default function Counter(props) {
 
  const [currentScreen, setCurrentScreen] = useState('counter');
 
+
+
  useEffect(()=>{//gets username and token from storage
   const getUserName = async ()=>{
     userName.current= await AsyncStorage.getItem('userName');
@@ -147,6 +149,21 @@ setScore(scoreObject.score);
   console.log('score error', error);
  }
 }
+
+
+ 
+ const mySpotterShare = async() =>{
+     const shareOptions = {
+       message: 'https://dev.stedi.me/timer.html#'+(token.current)
+     }
+     try{
+       const shareResponse = await Share.share(shareOptions)
+       console.log(shareResponse);
+       }
+       catch(error){
+   console.log('Error', error)
+       }
+      }
 
 
 //outcome of the saving data
@@ -326,6 +343,13 @@ elevation: 4}}>
       style={styles.button}
     >
       <Text>{subscription ? 'Stop' : 'GO'}</Text>
+     </TouchableOpacity>
+     
+  <TouchableOpacity
+     onPress={ mySpotterShare}
+      style={styles.button}
+    >
+      <Text> add spotter</Text>
      </TouchableOpacity>
 
      </CardContent>
